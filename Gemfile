@@ -3,17 +3,23 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+# Use postgresql as the database for Active Record
+gem 'pg', '~> 0.18'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
+# Simple, secure token based authentication for Rails
+gem 'devise_token_auth', '~> 0.1.31'
+# blocking & throttling abusive requests
+gem 'rack-attack', '~> 5.0', '>= 5.0.1'
+# Generate your JSON in an object-oriented and convention-driven manner.
+# gem 'active_model_serializers', '~> 0.10.4'
+
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
   gem 'factory_girl_rails', '~> 4.8'
@@ -44,9 +50,13 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'faker', '~> 1.7', '>= 1.7.3'
 end
 
 group :production do
+  # For Heroku deployment
   gem 'rails_12factor'
 end
 

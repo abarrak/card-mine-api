@@ -1,3 +1,16 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'static_pages#home'
+
+  # Authentication
+  mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
+
+  # API resources
+  scope :api do
+    scope :v1 do
+      get 'home'  => 'static_pages#home'
+      get 'about' => 'static_pages#about'
+      resources :cards
+      resources :templates, only: [:index]
+    end
+  end
 end

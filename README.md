@@ -1,7 +1,6 @@
 # Card Mine
 [![Build Status](https://travis-ci.org/abarrak/card-factory.svg?branch=master)](https://travis-ci.org/abarrak/card-factory)
 
-
 ## Overview
 
 
@@ -12,4 +11,4 @@
 
 
 ## License
-MIT.
+Unlicensed (Public Domain).
