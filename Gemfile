@@ -22,7 +22,6 @@ gem 'rack-attack', '~> 5.0', '>= 5.0.1'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
-  gem 'factory_girl_rails', '~> 4.8'
 end
 
 group :development do
@@ -50,6 +49,7 @@ group :development do
 end
 
 group :test do
+  gem 'factory_girl_rails', '~> 4.8'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'faker', '~> 1.7', '>= 1.7.3'

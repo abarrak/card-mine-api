@@ -27,31 +27,32 @@
 #  updated_at             :datetime         not null
 #
 
-class User < ApplicationRecord
-  # Include default devise modules
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable
-  include DeviseTokenAuth::Concerns::User
+RSpec.describe User, type: :model do
+  context "Relationships" do
+    it { should have_many(:cards) }
+  end
 
-  # Associations
-  has_many :cards, dependent: :destroy
+  context "Validators" do
+    let (:sample) { build(:user) }
 
-  # Validators
-  validates :nickname, presence: true, length: { minimum: 3, maximum: 30 },
-            uniqueness: { case_sensitive: false }
-  validates :email, presence: true, length: { minimum: 7, maximum: 255 },
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i },
-                    uniqueness: { case_sensitive: false }
+    it { should validate_presence_of(:nickname) }
+    it { should validate_presence_of(:email) }
+    it { should validate_length_of(:nickname).is_at_least(3).is_at_most(30) }
+    it { should validate_length_of(:email).is_at_least(7).is_at_most(255) }
+    it { should validate_length_of(:password).is_at_least(6).is_at_most(128) }
 
-  # Callbacks
-  before_save :normalize_attrs
-
-  # Methods and business Logic
-
-  private
-
-    def normalize_attrs
-      self.email.downcase! if self.email.respond_to? :downcase!
-      self.nickname.downcase! if self.nickname.respond_to? :downcase!
+    context "Uniqueness validatoions" do
+      subject { sample }
+      it { should validate_uniqueness_of(:email).case_insensitive }
+      it { should validate_uniqueness_of(:nickname).case_insensitive }
     end
+
+    it "rejects invalid emails" do
+      expect(sample).to be_valid
+      %w( a@.kaa aaa@..com  abc.com.a iurnswq.@.com not@so,good).each do |e|
+        sample.email = e
+        expect(sample).not_to be_valid
+      end
+    end
+  end
 end

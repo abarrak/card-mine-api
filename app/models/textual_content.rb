@@ -19,8 +19,11 @@
 class TextualContent < ApplicationRecord
   # Associations
   belongs_to :card, dependent: :destroy
+  has_one :template, through: :card
 
   # Validators
+  validates :content, presence: true
+  validates :x_position, :y_position, :width, :height, numericality: { only_integer: true }
 
   # Callbacks
 

@@ -13,5 +13,12 @@
 require 'rails_helper'
 
 RSpec.describe Template, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "relationships" do
+    it { should have_many(:cards).dependent(:restrict_with_error) }
+  end
+
+  describe "validators" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:image) }
+  end
 end

@@ -19,8 +19,7 @@ class Card < ApplicationRecord
   has_many :textual_contents
 
   # Validators
-  validates :title, presence: true, length: { minimum: 3, maximum: 35 }
-  validates :user, :template, presence: true
+  validates :title, presence: true, length: { minimum: 3, maximum: 40 }
 
   # Scopes
   default_scope -> { includes(:textual_contents) }

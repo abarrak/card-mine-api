@@ -12,10 +12,9 @@
 
 class Template < ApplicationRecord
   # Associations
+  has_many :cards, dependent: :restrict_with_error
 
   # Validators
-
-  # Callbacks
-
-  # Methods and business Logic
+  validates :name, presence: true
+  validates :image, presence: true
 end
