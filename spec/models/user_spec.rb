@@ -29,7 +29,7 @@
 
 RSpec.describe User, type: :model do
   context "Relationships" do
-    it { should have_many(:cards) }
+    it { should have_many(:cards).dependent(:destroy) }
   end
 
   context "Validators" do

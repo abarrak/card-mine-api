@@ -34,7 +34,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   # Associations
-  has_many :cards, dependent: :destroy
+  has_many :cards, -> { includes(:textual_contents) }, dependent: :destroy
 
   # Validators
   validates :nickname, presence: true, length: { minimum: 3, maximum: 30 },

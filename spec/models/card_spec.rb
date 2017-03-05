@@ -17,7 +17,7 @@ require 'rails_helper'
 RSpec.describe Card, type: :model do
 
   example_group "relationships" do
-    it { should belong_to(:user).dependent(:destroy) }
+    it { should belong_to(:user) }
     it { should belong_to(:template) }
     it { should have_many(:textual_contents) }
   end

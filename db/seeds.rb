@@ -39,9 +39,11 @@ Template.first_or_create [
 User.first_or_create [
   { nickname: "zohoor", first_name: "Zohoor", last_name: "love", email: "zohoor@example.com",
     password: "112233", password_confirmation: "112233" },
-  { nickname: "abdullah", first_name: "Dhyaa", last_name: "abdullah", email: "dhyaa@example.com",
+  { nickname: "dhyaa", first_name: "Dhyaa", last_name: "abdullah", email: "dhyaa@example.com",
     password: "112233", password_confirmation: "112233" },
 ]
+User.first.confirm
+User.second.confirm
 
 # Seed the experimental cards with content.
 Card.first_or_create title: "Inspiring Quote", description: "To keep us positive and motivated.",

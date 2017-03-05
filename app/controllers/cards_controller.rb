@@ -1,11 +1,12 @@
 class CardsController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_card, only: [:show, :update, :destroy]
+  before_action :authorize_for_cards!, except: [:index, :create]
 
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
+    @cards = current_user.cards
   end
 
   # GET /cards/1
@@ -38,7 +39,11 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
-    @card.destroy
+    if @card.destroy
+      render json: {}, status: 204
+    else
+      render json: {}, status: :unprocessable_entity
+    end
   end
 
   private
@@ -50,6 +55,13 @@ class CardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
-      params.require(:card).permit :title, :description, :user_id, :template_id, :draft
+      params.require(:card).permit :title, :description, :user_id, :template_id, :draft,
+                                   textual_contents_attributes: [:id, :content, :font_family,
+                                   :font_size, :color, :x_position, :y_position, :width, :height]
+    end
+
+    # Allow access and management for the owner only
+    def authorize_for_cards!
+      unauthorized_response && return unless authorized_for? @card
     end
 end

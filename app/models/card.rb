@@ -14,15 +14,17 @@
 
 class Card < ApplicationRecord
   # Associations
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
   belongs_to :template
-  has_many :textual_contents
+  has_many :textual_contents, dependent: :destroy
+
+  accepts_nested_attributes_for :textual_contents, allow_destroy: true
 
   # Validators
   validates :title, presence: true, length: { minimum: 3, maximum: 40 }
 
   # Scopes
-  default_scope -> { includes(:textual_contents) }
+  default_scope { includes(:textual_contents) }
 
   # Callbacks
 

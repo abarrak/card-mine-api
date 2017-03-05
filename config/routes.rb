@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'static_pages#home'
+  root to: 'static_content#home'
 
   # Authentication
   mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   # API resources
   scope :api, defaults: { format: :json } do
     scope :v1 do
-      get 'home'  => 'static_pages#home'
-      get 'about' => 'static_pages#about'
+      get 'about'   => 'static_content#about'
+      get 'contact' => 'static_content#contact'
       resources :cards
       resources :templates, only: [:index]
     end

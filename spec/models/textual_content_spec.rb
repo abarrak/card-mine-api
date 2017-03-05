@@ -20,7 +20,7 @@ require 'rails_helper'
 
 RSpec.describe TextualContent, type: :model do
   context "Relationships" do
-    it { should belong_to(:card).dependent(:destroy) }
+    it { should belong_to(:card) }
     it { should have_one(:template).through(:card) }
   end
 

@@ -18,7 +18,7 @@
 
 class TextualContent < ApplicationRecord
   # Associations
-  belongs_to :card, dependent: :destroy
+  belongs_to :card
   has_one :template, through: :card
 
   # Validators

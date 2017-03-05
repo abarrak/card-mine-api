@@ -1,12 +1,14 @@
 FactoryGirl.define do
   # Sample User factory
+  fake_password = Faker::Internet.password 6, 128
+
   factory :user do
-    first_name "John"
-    last_name  "Doe"
-    nickname "johnny"
-    email "John@doe.com"
-    password "112233"
-    password_confirmation "112233"
+    first_name Faker::Name.first_name
+    last_name  Faker::Name.last_name
+    nickname Faker::Cat.name
+    email Faker::Internet.email
+    password fake_password
+    password_confirmation fake_password
   end
 
   # Sample Template factory
@@ -36,5 +38,25 @@ FactoryGirl.define do
     height 40
     x_position 50
     y_position 120
+  end
+
+  # List of Templates factories
+  factory :templates_list, class: Template do
+    sequence(:name)   { |n| "Sample Card #{n}" }
+    sequence(:image)  { |n| "sample-card-#{n}.png" }
+  end
+
+  # Other factories for later manipulation
+  factory :new_user, class: User do
+    nickname "john"
+    email "john@example.com"
+    password "111222"
+    password_confirmation "111222"
+  end
+
+  factory :new_card, class: Card do
+    title "~ My New Card ~"
+    template
+    user nil
   end
 end
