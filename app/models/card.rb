@@ -22,6 +22,7 @@ class Card < ApplicationRecord
 
   # Validators
   validates :title, presence: true, length: { minimum: 3, maximum: 40 }
+  validate :ensure_owner_user
 
   # Scopes
   default_scope { includes(:textual_contents) }
@@ -29,4 +30,11 @@ class Card < ApplicationRecord
   # Callbacks
 
   # Methods and business Logic
+  private
+
+    def ensure_owner_user
+      ids = self.changes[:user_id]
+      return if ids.nil? || ids.try(:first).nil?
+      errors[:user] << 'has no premission to alter card owner.' unless ids.first == ids.last
+    end
 end

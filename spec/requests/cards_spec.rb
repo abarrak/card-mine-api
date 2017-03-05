@@ -148,6 +148,11 @@ RSpec.describe "Cards resource API", type: :request do
       end
 
       it "cannot assigned user for a card as it's prevented" do
+        patch subject_path, params: { card: { user_id: 1 } }, headers: @auth_headers
+        expect(response).to have_http_status(422)
+
+        get subject_path, headers: @auth_headers
+        expect(json['user_id']).to eq(@user.id)
       end
     end
 
@@ -162,5 +167,4 @@ RSpec.describe "Cards resource API", type: :request do
       end
     end
   end
-
 end
