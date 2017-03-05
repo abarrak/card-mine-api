@@ -1,8 +1,19 @@
 en:
-  hello: "Hello world"
+  app_name: Card Mine
+  home: Home
+  about: About
+  contact: contact
+  
+  # Devise 
   devise:
     mailer:
       confirmation_instructions:
         subject: "Please confirm your e-mail address"
       reset_password_instructions:
         subject: "Reset password request"
+  
+  # Active Record models
+  activerecord:
+    errors:
+      messages:
+        color_invalid: is not a valid hex color value

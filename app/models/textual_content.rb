@@ -24,8 +24,18 @@ class TextualContent < ApplicationRecord
   # Validators
   validates :content, presence: true
   validates :x_position, :y_position, :width, :height, numericality: { only_integer: true }
+  validate :accepted_color_value
 
   # Callbacks
 
   # Methods and business Logic
+
+  private
+
+    def accepted_color_value
+      # regexp credit: (gist.github.com/attilagyorffy/1324384)
+      unless /^#(?:[0-9a-f]{3})(?:[0-9a-f]{3})?$/i =~ self.color
+        errors[:color] << :invalid_color_value
+      end
+    end
 end

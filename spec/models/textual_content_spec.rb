@@ -30,5 +30,26 @@ RSpec.describe TextualContent, type: :model do
     it { should validate_numericality_of(:y_position).only_integer }
     it { should validate_numericality_of(:width).only_integer }
     it { should validate_numericality_of(:height).only_integer }
-   end
+
+    example_group "Color validation" do
+      let (:textual_content) { build(:textual_content) }
+
+      it "rejects incorrect hex values" do
+        expect(textual_content).not_to be_valid
+
+        ["100", nil, "none", "green", "#21", "#000#" "##11", "#f12ab"].each do |c|
+          textual_content.color = c
+          expect(textual_content).not_to be_valid
+        end
+      end
+
+      it "and, accepts valid hext values" do
+        ["#f110ab", "#000", "#555555", "#AABC10", "#c1983c"].each do |c|
+          textual_content.color = c
+          expect(textual_content).to be_valid
+        end
+      end
+    end
+  end
+
 end

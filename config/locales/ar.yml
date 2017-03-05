@@ -1,2 +1,19 @@
-ar:
-  hello: مرحباً !
+en:
+  app_name: كارد ماين
+  home: الرئيسية
+  about: تقديم
+  contact: تواصل
+  
+  # Devise 
+  devise:
+    mailer:
+      confirmation_instructions:
+        subject: "تأكيد البريد الإلكتروني - كارد ماين"
+      reset_password_instructions:
+        subject: "تغيير كلمة المرور - كارد ماين"
+  
+  # Active Record models
+  activerecord:
+    errors:
+      messages:
+        color_invalid: "معطى قيمةً لونيةً خاطئة"
