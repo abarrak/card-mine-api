@@ -40,9 +40,9 @@ class CardsController < ApplicationController
   # DELETE /cards/1.json
   def destroy
     if @card.destroy
-      render json: {}, status: 204
+      render json: { message: 'Card deleted sucussfully.' }, status: 204
     else
-      render json: {}, status: :unprocessable_entity
+      render json: { message: 'Failed to delete car.' }, status: :unprocessable_entity
     end
   end
 
