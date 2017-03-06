@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Static Content", type: :request do
+RSpec.describe "Static Content API", type: :request do
   describe "GET /" do
     before { get '/' }
 

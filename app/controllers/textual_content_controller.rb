@@ -1,0 +1,2 @@
+class TextualContentController < ApplicationController
+end

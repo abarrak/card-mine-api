@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Cards resource API", type: :request do
+RSpec.describe "Card resources API", type: :request do
   before do
     create :new_user
     create :card, user: User.last
