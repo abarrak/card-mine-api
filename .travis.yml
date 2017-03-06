@@ -2,8 +2,10 @@ language: ruby
 rvm:
   - 2.2.2
 cache: bundler
-services:
-  - postgresql
+addons:
+  postgresql: "9.4"
+env:
+- DB=postgresql
 bundler_args: --without production
 before_script:
   - psql -c 'create database card_mine_backend_test;' -U postgres
