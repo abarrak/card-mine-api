@@ -52,7 +52,10 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'cardmine.herokuapp.com', port: 8080 }
   config.action_mailer.delivery_method     = :smtp
-  config.action_mailer.smtp_settings       = { address: 'cardmine.herokuapp.com', port: 1025 }
+  config.action_mailer.smtp_settings       = { address: 'smtp.sendgrid.net', port: 465,
+                                               user_name: ENV['SENDGRID_USERNAME'],
+                                               password: ENV['SENDGRID_PASSWORD'],
+                                               enable_starttls_auto: true }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
