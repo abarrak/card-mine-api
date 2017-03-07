@@ -19,7 +19,7 @@ RSpec.describe Card, type: :model do
   example_group "relationships" do
     it { should belong_to(:user) }
     it { should belong_to(:template) }
-    it { should have_many(:textual_contents) }
+    it { should have_many(:textual_content) }
   end
 
   example_group "validators" do

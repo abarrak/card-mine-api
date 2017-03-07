@@ -40,9 +40,9 @@ class CardsController < ApplicationController
   # DELETE /cards/1.json
   def destroy
     if @card.destroy
-      render json: { message: 'Card deleted sucussfully.' }, status: 204
+      render json: { message: 'Card deleted sucussfully.' }, status: 200
     else
-      render json: { message: 'Failed to delete car.' }, status: :unprocessable_entity
+      render json: { message: 'Failed to delete card.' }, status: :unprocessable_entity
     end
   end
 
@@ -56,7 +56,7 @@ class CardsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
       params.require(:card).permit :title, :description, :user_id, :template_id, :draft,
-                                   textual_contents_attributes: [:id, :content, :font_family,
+                                   textual_content_attributes: [:id, :content, :font_family,
                                    :font_size, :color, :x_position, :y_position, :width, :height]
     end
 

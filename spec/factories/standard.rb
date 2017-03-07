@@ -33,7 +33,7 @@ FactoryGirl.define do
     card
     font_size 14
     font_family "Arial"
-    color "black"
+    color "#111"
     width 250
     height 40
     x_position 50

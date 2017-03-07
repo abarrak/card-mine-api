@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'static_content#home'
 
   # Authentication
@@ -9,8 +10,13 @@ Rails.application.routes.draw do
     scope :v1 do
       get 'about'   => 'static_content#about'
       get 'contact' => 'static_content#contact'
-      resources :cards
+
       resources :templates, only: [:index]
+
+      resources :cards do
+        resources :textual_content
+      end
     end
+
   end
 end

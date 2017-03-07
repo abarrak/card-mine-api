@@ -35,15 +35,15 @@ RSpec.describe TextualContent, type: :model do
       let (:textual_content) { build(:textual_content) }
 
       it "rejects incorrect hex values" do
-        expect(textual_content).not_to be_valid
-
-        ["100", nil, "none", "green", "#21", "#000#" "##11", "#f12ab"].each do |c|
+        ["black", "100", nil, "none", "green", "#21", "#000#" "##11", "#f12ab"].each do |c|
           textual_content.color = c
           expect(textual_content).not_to be_valid
         end
       end
 
       it "and, accepts valid hext values" do
+        expect(textual_content).to be_valid
+
         ["#f110ab", "#000", "#555555", "#AABC10", "#c1983c"].each do |c|
           textual_content.color = c
           expect(textual_content).to be_valid
