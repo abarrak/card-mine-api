@@ -18,7 +18,7 @@
 
 class TextualContent < ApplicationRecord
   # Associations
-  belongs_to :card
+  belongs_to :card, inverse_of: 'textual_content'
   has_one :template, through: :card
 
   # Validators

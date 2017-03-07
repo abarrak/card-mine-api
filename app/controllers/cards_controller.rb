@@ -56,8 +56,8 @@ class CardsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
       params.require(:card).permit :title, :description, :user_id, :template_id, :draft,
-                                   textual_content_attributes: [:id, :content, :font_family,
-                                   :font_size, :color, :x_position, :y_position, :width, :height]
+                                   textual_content_attributes: [:content, :font_family, :font_size,
+                                   :color, :x_position, :y_position, :width, :height]
     end
 
     # Allow access and management for the owner only

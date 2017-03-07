@@ -16,7 +16,7 @@ class Card < ApplicationRecord
   # Associations
   belongs_to :user
   belongs_to :template
-  has_many :textual_content, dependent: :destroy
+  has_many :textual_content, inverse_of: 'card', dependent: :destroy
 
   accepts_nested_attributes_for :textual_content, allow_destroy: true
 

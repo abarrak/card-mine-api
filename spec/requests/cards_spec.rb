@@ -104,7 +104,41 @@ RSpec.describe "Card resources API", type: :request do
         expect(Card.last.user).to eq(@user)
       end
 
-      it "allows nested textual_content creation with card" do
+      context "Nested textual content creation with card is allowed" do
+        let (:valid_attributes_with_textual_content) {
+          tc = build(:textual_content, card: nil).attributes
+          valid_attributes[:textual_content_attributes] = [tc]
+          valid_attributes
+        }
+
+        it "returns 200" do
+          post '/api/v1/cards', params: { card: valid_attributes_with_textual_content },
+               headers: @auth_headers
+          expect(response).to have_http_status(201)
+        end
+
+        it "creates the submitted card" do
+          expect {
+            post '/api/v1/cards', params: { card: valid_attributes_with_textual_content },
+                 headers: @auth_headers
+          }.to change(Card, :count).by(1)
+        end
+
+        it "creates the submitted card with textual content" do
+          expect {
+            post '/api/v1/cards', params: { card: valid_attributes_with_textual_content },
+                 headers: @auth_headers
+          }.to change(TextualContent, :count).by(1)
+        end
+
+        it "associates created card to the submitter & textual content with the card" do
+          post '/api/v1/cards', params: { card: valid_attributes_with_textual_content },
+               headers: @auth_headers
+
+          created_card = Card.last
+          expect(created_card.user).to eq(@user)
+          expect(TextualContent.last.card).to eq(created_card)
+        end
       end
     end
 
@@ -158,7 +192,48 @@ RSpec.describe "Card resources API", type: :request do
         expect(json['user_id']).to eq(@user.id)
       end
 
-      it "allows nested textual_content updates directly with card" do
+      context "Nested textual content creation & updating within card updates is allowed" do
+        let (:updated_attributes_textual_content) {
+          tc = build(:textual_content, card: nil).attributes
+          updated_attributes[:textual_content_attributes] = [tc]
+          # Sometimes with cards changes, and sometimes with textual content changes only
+          [updated_attributes, { textual_content_attributes: [tc] }].sample
+        }
+
+        it "returns status code 200" do
+          patch subject_path, params: { card: updated_attributes_textual_content },
+                headers: @auth_headers
+          expect(response).to have_http_status(200)
+        end
+
+        it "alters card data and creates any new nested textual content" do
+          patch subject_path, params: { card: updated_attributes_textual_content },
+                headers: @auth_headers
+          expect(json['title']).to eq(updated_attributes[:title]) if updated_attributes.key? :card
+          expect([
+            json['textual_content'].last['content'],
+            json['textual_content'].last['x_position'],
+            json['textual_content'].last['y_position'],
+            json['textual_content'].last['width'],
+            json['textual_content'].last['height'],
+            json['textual_content'].last['font_family'],
+            json['textual_content'].last['font_size'],
+            json['textual_content'].last['color']
+          ]).to eq([
+            updated_attributes_textual_content[:textual_content_attributes].last['content'],
+            updated_attributes_textual_content[:textual_content_attributes].last['x_position'],
+            updated_attributes_textual_content[:textual_content_attributes].last['y_position'],
+            updated_attributes_textual_content[:textual_content_attributes].last['width'],
+            updated_attributes_textual_content[:textual_content_attributes].last['height'],
+            updated_attributes_textual_content[:textual_content_attributes].last['font_family'],
+            updated_attributes_textual_content[:textual_content_attributes].last['font_size'],
+            updated_attributes_textual_content[:textual_content_attributes].last['color']
+          ])
+        end
+
+        it "alters card data and/or the nested textual content" do
+          # Humm this one is gonna be tricky ..
+        end
       end
 
       it "allows destruction of textual_content along with card update" do
