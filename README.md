@@ -54,7 +54,7 @@ Refer to this [repo](https://github.com/abarrak/card-mine) to review the app cod
 
 
 ## TODO
-1. Add throttling and clients access keys
+1. Add throttling and clients access keys.
 2. Document the API extensively.
 
 

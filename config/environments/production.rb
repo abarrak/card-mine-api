@@ -32,7 +32,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -50,9 +50,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'cardmine.com', port: 8080 }
+  config.action_mailer.default_url_options = { host: 'cardmine.herokuapp.com', port: 8080 }
   config.action_mailer.delivery_method     = :smtp
-  config.action_mailer.smtp_settings       = { address: 'cardmine.com', :port: 1025 }
+  config.action_mailer.smtp_settings       = { address: 'cardmine.herokuapp.com', port: 1025 }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
