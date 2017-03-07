@@ -41,7 +41,7 @@ A the complete documentation will be provided soon.
 
 
 ## Live
-Card Mine API version can be consumed online via heroku: [http://cardmine.herokuapp.com/api/v1/templates](http://cardmine.herokuapp.com/api/v1/templates).
+Card Mine API version can be consumed online via heroku: [http://cardmine.herokuapp.com/](http://cardmine.herokuapp.com/).
 
 For example, the following snippet gets the catalog of existing card templates in json form:
   
