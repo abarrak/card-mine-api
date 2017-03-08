@@ -50,12 +50,17 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'cardmine.herokuapp.com', port: 8080 }
-  config.action_mailer.delivery_method     = :smtp
-  config.action_mailer.smtp_settings       = { address: 'smtp.sendgrid.net', port: 465,
-                                               user_name: ENV['SENDGRID_USERNAME'],
-                                               password: ENV['SENDGRID_PASSWORD'],
-                                               enable_starttls_auto: true }
+  config.action_mailer.default_url_options = { host: 'cardmine.herokuapp.com', port: 443 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -83,4 +88,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Set 'rails-i18' gem Locates.
+  config.i18n.default_locale = :en
+  # config.i18n.available_locales = [:en, :ar]
+
+  # ActiveJob with sucker_punch
+  config.active_job.queue_adapter = :sucker_punch
 end

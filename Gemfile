@@ -16,8 +16,14 @@ gem 'rack-cors'
 gem 'devise_token_auth', '~> 0.1.31'
 # blocking & throttling abusive requests
 gem 'rack-attack', '~> 5.0', '>= 5.0.1'
+# For background processing, mainly ActionMailer.
+gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
 # Generate your JSON in an object-oriented and convention-driven manner.
 # gem 'active_model_serializers', '~> 0.10.4'
+
+# I18n extensions
+gem 'rails-i18n', '~> 5.0', '>= 5.0.3'
+gem 'devise-i18n', '~> 0.12.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -40,9 +46,9 @@ group :development do
   # Better error pages with interactive repl.
   gem 'better_errors'
   gem 'binding_of_caller'
-  # better irb.
+  # Better irb.
   gem 'hirb'
-  # load .env file variable into to global EVN[]
+  # Load .env file variable into to global EVN[]
   gem 'dotenv-rails', '~> 2.2'
   # Intercept ActionMailer messages for popup instead of sending.
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
