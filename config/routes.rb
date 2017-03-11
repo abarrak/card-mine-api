@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-
   root to: 'static_content#home'
+  get 'email_confirmation' => redirect('/email_confirmation.html')
 
   # Authentication
-  mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
+  mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks],
+                              controllers: { confirmations:  'overrides/confirmations' }
 
   # API resources
   scope :api, defaults: { format: :json } do

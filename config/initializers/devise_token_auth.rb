@@ -1,5 +1,5 @@
 DeviseTokenAuth.setup do |config|
-  config.default_confirm_success_url = "/"
+  config.default_confirm_success_url = "/email_confirmation"
 
   # By default the authorization headers will change after each request. The
   # client is responsible for keeping track of the changing tokens. Change
