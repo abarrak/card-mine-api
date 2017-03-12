@@ -56,5 +56,5 @@ TextualContent.first_or_create [
     width: 105, height: 25, x_position: 230, y_position: 140 }
 ]
 
-# Seed the one and only - for now - client app key
+# Seed the one and only -for now- client app key ..
 AppKey.first_or_create
