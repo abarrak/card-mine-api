@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302191859) do
+ActiveRecord::Schema.define(version: 20170311124226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["access_token"], name: "index_app_keys_on_access_token", using: :btree
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string   "title"

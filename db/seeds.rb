@@ -1,4 +1,4 @@
-# Seed the currently fixed set of cards templates.
+# Seed the currently fixed set of cards templates
 Template.first_or_create [
   { name: "Standard Blue", image: "standard-blue.png", description: nil },
   { name: "Standard Green", image: "standard-green.png", description: nil },
@@ -35,7 +35,7 @@ Template.first_or_create [
   { name: "Fine 15", image: "fine-15.png", description: nil }
 ]
 
-# Seed the experimental users.
+# Seed the experimental users
 User.first_or_create [
   { nickname: "zohoor", first_name: "Zohoor", last_name: "love", email: "zohoor@example.com",
     password: "112233", password_confirmation: "112233" },
@@ -45,7 +45,7 @@ User.first_or_create [
 User.first.confirm
 User.second.confirm
 
-# Seed the experimental cards with content.
+# Seed the experimental cards with content
 Card.first_or_create title: "Inspiring Quote", description: "To keep us positive and motivated.",
                      draft: false, template_id: 7, user_id: 1
 
@@ -55,3 +55,6 @@ TextualContent.first_or_create [
   { content: "Mark Twain", card_id: 1, font_size: 18, font_family: "Serif", color: "(135, 20, 20)",
     width: 105, height: 25, x_position: 230, y_position: 140 }
 ]
+
+# Seed the one and only - for now - client app key
+AppKey.first_or_create

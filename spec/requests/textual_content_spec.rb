@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Textual Content resources API", type: :request do
+  # api http access token with the authentication hash
+  let(:auth_bundled) { @auth_headers.merge api_access_hash }
+
   before do
     create :new_user
     create :card, user: User.last
@@ -19,22 +22,26 @@ RSpec.describe "Textual Content resources API", type: :request do
     end
 
     example "denies unauthenticated access" do
-      get "/api/v1/cards/#{recent_card_id}/textual_content"
+      get "/api/v1/cards/#{recent_card_id}/textual_content", headers: api_access_hash
       expect_401_response.call
 
-      post "/api/v1/cards/#{recent_card_id}/textual_content"
+      post "/api/v1/cards/#{recent_card_id}/textual_content", headers: api_access_hash
       expect_401_response.call
 
-      get "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      get "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+          headers: api_access_hash
       expect_401_response.call
 
-      put "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      put "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+          headers: api_access_hash
       expect_401_response.call
 
-      patch "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      patch "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+            headers: api_access_hash
       expect_401_response.call
 
-      delete "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      delete "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+             headers: api_access_hash
       expect_401_response.call
     end
 
@@ -42,22 +49,26 @@ RSpec.describe "Textual Content resources API", type: :request do
       # will loging with a user where recent card is not her record ..
       login
 
-      get "/api/v1/cards/#{recent_card_id}/textual_content"
+      get "/api/v1/cards/#{recent_card_id}/textual_content", headers: auth_bundled
       expect_401_response.call
 
-      post "/api/v1/cards/#{recent_card_id}/textual_content"
+      post "/api/v1/cards/#{recent_card_id}/textual_content", headers: auth_bundled
       expect_401_response.call
 
-      get "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      get "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+          headers: auth_bundled
       expect_401_response.call
 
-      put "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      put "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+          headers: auth_bundled
       expect_401_response.call
 
-      patch "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      patch "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+            headers: auth_bundled
       expect_401_response.call
 
-      delete "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}"
+      delete "/api/v1/cards/#{recent_card_id}/textual_content/#{recent_textual_content_id}",
+             headers: auth_bundled
       expect_401_response.call
 
       logout
@@ -75,7 +86,7 @@ RSpec.describe "Textual Content resources API", type: :request do
         create :card, user: @user
         @card = Card.last
         create :textual_content, card: @card
-        get "/api/v1/cards/#{@card.to_param}/textual_content", headers: @auth_headers
+        get "/api/v1/cards/#{@card.to_param}/textual_content", headers: auth_bundled
       end
 
       it "returns status code 200" do
@@ -98,20 +109,20 @@ RSpec.describe "Textual Content resources API", type: :request do
 
       it "returns status code 201" do
         post "/api/v1/cards/#{card.to_param}/textual_content",
-             params: { textual_content: valid_attributes }, headers: @auth_headers
+             params: { textual_content: valid_attributes }, headers: auth_bundled
         expect(response).to have_http_status(201)
       end
 
       it "creates the submitted textual content" do
         expect {
         post "/api/v1/cards/#{card.to_param}/textual_content",
-             params: { textual_content: valid_attributes }, headers: @auth_headers
+             params: { textual_content: valid_attributes }, headers: auth_bundled
         }.to change(TextualContent, :count).by(1)
       end
 
       it "associates created textual content with the card" do
         post "/api/v1/cards/#{card.to_param}/textual_content",
-             params: { textual_content: valid_attributes }, headers: @auth_headers
+             params: { textual_content: valid_attributes }, headers: auth_bundled
         expect(TextualContent.last.card).to eq(card)
       end
     end
@@ -129,7 +140,7 @@ RSpec.describe "Textual Content resources API", type: :request do
     let!(:subject_path) { "/api/v1/cards/#{@card.id}/textual_content/#{subject}" }
 
     describe "GET /api/v1/cards/:card_id/textual_content/:id" do
-      before { get subject_path, headers: @auth_headers }
+      before { get subject_path, headers: auth_bundled }
 
       it "returns status code 200" do
         expect(response).to have_http_status(200)
@@ -142,7 +153,7 @@ RSpec.describe "Textual Content resources API", type: :request do
 
       context "when record is not found" do
         it "returns 404" do
-          get "/api/v1/cards/#{@card.id}/textual_content/10000", headers: @auth_headers
+          get "/api/v1/cards/#{@card.id}/textual_content/10000", headers: auth_bundled
           expect(response).to have_http_status(404)
         end
       end
@@ -152,19 +163,19 @@ RSpec.describe "Textual Content resources API", type: :request do
       let(:updated_attributes) { { content: 'A wise quote here ..' } }
 
       it "returns status code 200" do
-        patch subject_path, params: { textual_content: updated_attributes }, headers: @auth_headers
+        patch subject_path, params: { textual_content: updated_attributes }, headers: auth_bundled
         expect(response).to have_http_status(200)
       end
 
       it "alters textual content data" do
-        patch subject_path, params: { textual_content: updated_attributes }, headers: @auth_headers
+        patch subject_path, params: { textual_content: updated_attributes }, headers: auth_bundled
         expect(json['content']).to eq(updated_attributes[:content])
       end
 
       context "when record is not found" do
         it "returns 404" do
           patch "/api/v1/cards/#{@card.id}/textual_content/999999", params: { textual_content: updated_attributes },
-                headers: @auth_headers
+                headers: auth_bundled
           expect(response).to have_http_status(404)
         end
       end
@@ -172,24 +183,24 @@ RSpec.describe "Textual Content resources API", type: :request do
 
     describe "DELETE /api/v1/cards/:id(.json)" do
       it "returns status code 200" do
-        delete subject_path, headers: @auth_headers
+        delete subject_path, headers: auth_bundled
         expect(response).to have_http_status(200)
       end
 
       it "with confirmation message" do
-        delete subject_path, headers: @auth_headers
+        delete subject_path, headers: auth_bundled
         expect(json['message']).not_to be_empty
       end
 
       it "destroys the requseted record" do
         expect {
-          delete subject_path, headers: @auth_headers
+          delete subject_path, headers: auth_bundled
         }.to change(TextualContent, :count).by(-1)
       end
 
       context "when record is not found" do
         it "returns 404" do
-          delete "/api/v1/cards/#{@card.id}/textual_content/999999", headers: @auth_headers
+          delete "/api/v1/cards/#{@card.id}/textual_content/999999", headers: auth_bundled
           expect(response).to have_http_status(404)
         end
       end

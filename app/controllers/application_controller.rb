@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::API
+  include ActionController::HttpAuthentication::Token::ControllerMethods
   include DeviseTokenAuth::Concerns::SetUserByToken
   include ExceptionHandler
+  include ApiAccessManagement
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :resrict_api_access!
 
   protected
     # permit other devise params ..

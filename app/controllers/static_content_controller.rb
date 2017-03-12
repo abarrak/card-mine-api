@@ -1,4 +1,6 @@
 class StaticContentController < ApplicationController
+  skip_before_action :resrict_api_access!
+
   def home
     render json: { status: "success", content: "Card mine" }
   end

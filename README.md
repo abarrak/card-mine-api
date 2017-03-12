@@ -49,12 +49,16 @@ For example, the following snippet gets the catalog of existing card templates i
 curl -X GET http://cardmine.herokuapp.com/api/v1/templates
 ```
 
+## Security
+Access to all API resources (except static content) is restricted to request with valid token that adheres to [HTTP Token Authentication](http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token/ControllerMethods.html).
+
+
 ## iOS Client App 
 Refer to this [repo](https://github.com/abarrak/card-mine) to review the app code and related files.
 
 
 ## TODO
-1. Add throttling and clients access keys.
+1. Add throttling ~~and clients access keys~~.
 2. Document the API extensively.
 
 

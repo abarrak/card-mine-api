@@ -4,6 +4,10 @@ en:
   about: About
   contact: contact
   
+  # Errors
+  errors:
+    api_restricted_access: "(401) Unauthorized Access. Please ensure correct app token access"
+    
   # Devise 
   devise:
     mailer:
@@ -11,7 +15,7 @@ en:
         subject: "Please confirm your e-mail address"
       reset_password_instructions:
         subject: "Reset password request"
-  
+    
   # Active Record models
   activerecord:
     errors:
