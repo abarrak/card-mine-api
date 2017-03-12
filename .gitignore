@@ -19,3 +19,6 @@
 
 # env
 .env
+
+# ignore simpleCover report
+coverage

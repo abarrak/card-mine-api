@@ -17,6 +17,14 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+# == Coverage Setup
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter "/spec/"
+  add_filter "/app/channels"
+end
+
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

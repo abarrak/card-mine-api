@@ -59,6 +59,8 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'faker', '~> 1.7', '>= 1.7.3'
+  gem 'simplecov', :require => false
+  gem "codeclimate-test-reporter", "~> 1.0.0", :require => false
 end
 
 group :production do

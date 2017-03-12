@@ -1,5 +1,5 @@
 # Card Mine API
-[![Build Status](https://travis-ci.org/abarrak/card-mine-api.svg?branch=master)](https://travis-ci.org/abarrak/card-mine-api) [![Dependency Status](https://gemnasium.com/badges/github.com/abarrak/card-mine-api.svg)](https://gemnasium.com/github.com/abarrak/card-mine-api) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/abarrak/card-mine-api.svg?branch=master)](https://travis-ci.org/abarrak/card-mine-api) [![Test Coverage](https://lima.codeclimate.com/github/abarrak/card-mine-api/badges/coverage.svg)](https://lima.codeclimate.com/github/abarrak/card-mine-api/coverage) [![Code Climate](https://lima.codeclimate.com/github/abarrak/card-mine-api/badges/gpa.svg)](https://lima.codeclimate.com/github/abarrak/card-mine-api) [![Dependency Status](https://gemnasium.com/badges/github.com/abarrak/card-mine-api.svg)](https://gemnasium.com/github.com/abarrak/card-mine-api) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   
 ![Logo](https://raw.githubusercontent.com/abarrak/card-mine-api/master/public/images/logo.png)
 
