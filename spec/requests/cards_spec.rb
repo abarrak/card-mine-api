@@ -139,6 +139,23 @@ RSpec.describe "Card resources API", type: :request do
           expect(TextualContent.last.card).to eq(created_card)
         end
       end
+
+      context "with invalid attributes" do
+        let(:invalid_attrs) {
+          valid_attributes.tap { |attrs| attrs[:title] = '' }
+        }
+
+        it "retunrs 422 status code" do
+          post '/api/v1/cards', params: { card: invalid_attrs }, headers: auth_bundled
+          expect(response).to have_http_status(422)
+        end
+
+        it "does not create the card record" do
+          expect {
+            post '/api/v1/cards', params: { card: invalid_attrs }, headers: auth_bundled
+          }.not_to change(Card, :count)
+        end
+      end
     end
 
     # Single resource specs

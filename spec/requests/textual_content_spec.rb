@@ -125,6 +125,25 @@ RSpec.describe "Textual Content resources API", type: :request do
              params: { textual_content: valid_attributes }, headers: auth_bundled
         expect(TextualContent.last.card).to eq(card)
       end
+
+      context "with invalid attributes" do
+        let(:invalid_attrs) {
+          valid_attributes.tap { |attrs| attrs[:content] = '' }
+        }
+
+        it "retunrs 422 status code" do
+          post "/api/v1/cards/#{card.to_param}/textual_content",
+               params: { textual_content: invalid_attrs }, headers: auth_bundled
+          expect(response).to have_http_status(422)
+        end
+
+        it "does not create the card record" do
+          expect {
+            post "/api/v1/cards/#{card.to_param}/textual_content",
+                 params: { textual_content: invalid_attrs }, headers: auth_bundled
+          }.not_to change(TextualContent, :count)
+        end
+      end
     end
 
     # Single resource specs
@@ -177,6 +196,20 @@ RSpec.describe "Textual Content resources API", type: :request do
           patch "/api/v1/cards/#{@card.id}/textual_content/999999", params: { textual_content: updated_attributes },
                 headers: auth_bundled
           expect(response).to have_http_status(404)
+        end
+      end
+
+      context "with invalid date for update" do
+        let(:invalid_data) { { x_position: 10.40 } }
+
+        it "retunrs 422 status code" do
+          patch subject_path, params: { textual_content: invalid_data }, headers: auth_bundled
+          expect(response).to have_http_status(422)
+        end
+
+        it "does not alter the record" do
+          patch subject_path, params: { textual_content: invalid_data }, headers: auth_bundled
+          expect(TextualContent.last.x_position).not_to eq(invalid_data[:x_position])
         end
       end
     end

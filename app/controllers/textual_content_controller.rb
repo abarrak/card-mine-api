@@ -40,11 +40,8 @@ class TextualContentController < ApplicationController
   # DELETE /cards/:card_id/textual_content/:id
   # DELETE /cards/:card_id/textual_content/:id.json
   def destroy
-    if @textual_content.destroy
-      render json: { message: 'Textual content deleted sucussfully.' }, status: 200
-    else
-      render json: { message: 'Failed to delete textual content.' }, status: :unprocessable_entity
-    end
+    @textual_content.destroy
+    render json: { message: 'Textual content deleted sucussfully.' }, status: 200
   end
 
   private
