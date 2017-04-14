@@ -38,7 +38,8 @@ class User < ApplicationRecord
 
   # Validators
   validates :nickname, presence: true, length: { minimum: 3, maximum: 30 },
-            uniqueness: { case_sensitive: false }
+                       format: { with: /\A[a-z0-9\-_]+\z/i, message: :nickname_format },
+                       uniqueness: { case_sensitive: false }
   validates :email, presence: true, length: { minimum: 7, maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }

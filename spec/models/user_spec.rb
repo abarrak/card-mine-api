@@ -54,5 +54,18 @@ RSpec.describe User, type: :model do
         expect(sample).not_to be_valid
       end
     end
+
+    it "doesn't allows whitespace or other charachers for nickname expect A-Z, 0-9, -, _ only." do
+      expect(sample).to be_valid
+      ['abc iop', '@iem', '&malformed%'].each do |n|
+        sample.nickname = n
+        expect(sample).not_to be_valid
+
+        message = 'Nickname must consist of alphanumeric charachers only with no whitespace space.'
+        expect(sample.errors.messages).to have_key(:nickname)
+        expect(sample.errors.full_messages).to include(message)
+      end
+      expect(sample.tap { |u| u.nickname = "nice_one-19" } ).to be_valid
+    end
   end
 end
