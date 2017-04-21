@@ -3,7 +3,29 @@ en:
   home: Home
   about: About
   contact: contact
-  
+  # Pages
+  content:
+    home: welcome to Card mine API !
+    about: >
+      Card Mine works as a card factory engine that helps you generate different kinds of cards along 
+      with stamps of formatted text, then persist them in the cloud.
+      
+      With Car Mine, you can make and share cards with your friends, family, and loved ones.
+                  
+      It's essentially implemented to be the back-end to my capstone project for Udacity iOS nanodegree.
+      
+      Happy Journey! :)
+
+      - Card Mine Team
+    contact: >
+      We always likes when people reach out with us ..
+      Your notes and suggestions are more than welcome.
+      
+      Contact us at cardmineapp@gmail.com.
+      
+      Thank you!
+      
+      - Card Mine Team
   # Errors
   errors:
     api_restricted_access: "(401) Unauthorized Access. Please ensure correct app token access"

@@ -10,6 +10,11 @@ RSpec.describe "Static Content API", type: :request do
 
     it "returns landing content as json payload" do
       expect(json).not_to be_empty
+      expect(json).to have_key('content')
+    end
+
+    it "gives the right content back to requester" do
+      expect(json['content']).to eq(I18n.t 'content.home')
     end
   end
 
@@ -22,6 +27,11 @@ RSpec.describe "Static Content API", type: :request do
 
     it "returns about content as json payload" do
       expect(json).not_to be_empty
+      expect(json).to have_key('content')
+    end
+
+    it "gives the right content back to requester" do
+      expect(json['content']).to eq(I18n.t 'content.about')
     end
   end
 
@@ -34,6 +44,12 @@ RSpec.describe "Static Content API", type: :request do
 
     it "returns contact content as json payload" do
       expect(json).not_to be_empty
+      expect(json).to have_key('content')
+    end
+
+    it "gives the right content back to requester" do
+      expect(json['content']).to eq(I18n.t 'content.contact')
+      p json['content']
     end
   end
 end
