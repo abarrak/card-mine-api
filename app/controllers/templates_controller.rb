@@ -4,7 +4,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    @base_url = "#{root_url}/images/cards-templates"
+    @base_url = "#{root_url}images/cards-templates"
     @templates = Template.all
   end
 end
