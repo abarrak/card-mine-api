@@ -18,6 +18,6 @@ Rails.application.routes.draw do
         resources :textual_content
       end
     end
-
   end
+
 end

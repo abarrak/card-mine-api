@@ -2,6 +2,7 @@ module ApiAccessManagement
   # Api request should add ```Authorization:Token token=<access_token>``` header
   # in order to be authenticated.
   def resrict_api_access!
+    return if request.original_fullpath.include? 'auth/confirmation'
     authenticate_or_request_with_http_token 'Application', error_message do |token, options|
         AppKey.exists? access_token: token
     end
