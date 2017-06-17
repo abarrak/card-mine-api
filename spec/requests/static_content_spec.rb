@@ -49,7 +49,6 @@ RSpec.describe "Static Content API", type: :request do
 
     it "gives the right content back to requester" do
       expect(json['content']).to eq(I18n.t 'content.contact')
-      p json['content']
     end
   end
 end

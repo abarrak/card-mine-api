@@ -18,8 +18,9 @@ module Overrides
     private
 
       def secure_url url
-        parsed_url = URI.parse url
-        parsed_url.host == URI.parse(root_url).host ? parsed_url : root_url
+        # parsed_url = URI.parse url
+        # parsed_url.host == URI.parse(root_url).host ? parsed_url : root_url
+        '/email_confirmation'
       end
   end
 end
